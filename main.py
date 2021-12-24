@@ -2,18 +2,8 @@ import numpy as np
 import cv2
 import time
 from cvzone import HandTrackingModule as htm
-from ctypes import cast, POINTER
-from comtypes import CLSCTX_ALL
-from pycaw.pycaw import AudioUtilities, IAudioEndpointVolume
+import screen_brightness_control as sbc
 import math
-
-# pycaw
-devices = AudioUtilities.GetSpeakers()
-interface = devices.Activate(IAudioEndpointVolume._iid_, CLSCTX_ALL, None)
-volume = cast(interface, POINTER(IAudioEndpointVolume))
-volRange = volume.GetVolumeRange()
-minVol = volRange[0]
-maxVol = volRange[1]
 
 wCam, hCam = 640, 480
 
@@ -21,10 +11,10 @@ cap = cv2.VideoCapture(0)
 cap.set(3, wCam)
 cap.set(4, hCam)
 pTime = 0
-vol = 0
-volBar = 400
-volPer = 0
-
+brightBar = 400
+brightPer = 0
+primary_brightness = sbc.get_brightness()
+print("Primary brightness:", primary_brightness)
 detector = htm.HandDetector()
 
 while True:
@@ -34,7 +24,7 @@ while True:
     lmList = detector.findPosition(img, draw=False)
 
     if lmList != ([], []):
-        #print(lmList[0][4], lmList[0][8])
+        # print(lmList[0][4], lmList[0][8])
 
         x1, y1 = lmList[0][4][0], lmList[0][4][1]
         x2, y2 = lmList[0][8][0], lmList[0][8][1]
@@ -48,17 +38,15 @@ while True:
         # print(length)
 
         # hand range 50-300
-        # volume range -96 - 0
-
-        vol = np.interp(length, [50, 300], [minVol, maxVol])
-        volBar = np.interp(length, [50, 300], [400, 150])
-        volPer = np.interp(length, [50, 300], [0, 100])
-        volume.SetMasterVolumeLevel(vol, None)
-        print(length, vol)
+        # brightness range - 0 - 100
+        brightBar = np.interp(length, [50, 300], [400, 150])
+        brightPer = np.interp(length, [50, 300], [0, 100])
+        sbc.set_brightness(brightPer, display=0)
+        print(length, brightPer)
 
     cv2.rectangle(img, (50, 150), (85, 400), (0, 0, 0), 4)
-    cv2.rectangle(img, (50, int(volBar)), (85, 400), (0, 0, 200), cv2.FILLED)
-    cv2.putText(img, f'Volume: {int(volPer)}%', (40, 500), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 3)
+    cv2.rectangle(img, (50, int(brightBar)), (85, 400), (0, 0, 200), cv2.FILLED)
+    cv2.putText(img, f'Brightness: {int(brightPer)}%', (40, 450), cv2.FONT_HERSHEY_SIMPLEX, 1, (120, 255, 0), 3)
     cTime = time.time()
     fps = 1/(cTime - pTime)
     pTime = cTime
@@ -67,4 +55,3 @@ while True:
     cv2.imshow("Frame", img)
     if cv2.waitKey(1) == 27:
         break
-
