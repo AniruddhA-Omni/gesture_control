@@ -13,7 +13,7 @@
 
     ```bash
     git clone https://github.com/AniruddhA-Omni/gesture_control.git
-    cd GestureControl
+    cd GestureControlBrightness
     ```
 2. Install dependent packages
     ```bash
