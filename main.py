@@ -30,14 +30,24 @@ detector = htm.HandDetector()
 while True:
     success, img = cap.read()
     img = cv2.flip(img, 1)
+    # Find Hand
     img = detector.findHands(img)
-    lmList = detector.findPosition(img, draw=False)
+    lmList, bbox = detector.findPosition(img, draw=True)
 
-    if lmList != ([], []):
-        #print(lmList[0][4], lmList[0][8])
+    if len(lmList) != 0:
+        # print(lmList[4], lmList[8])
+        # Filter based on size
 
-        x1, y1 = lmList[0][4][0], lmList[0][4][1]
-        x2, y2 = lmList[0][8][0], lmList[0][8][1]
+        # find distance between index and thumb
+
+        # convert volume
+
+        # reduce resolution to make it smoother
+
+        # check fingers up
+
+        x1, y1 = lmList[4][0], lmList[4][1]
+        x2, y2 = lmList[8][0], lmList[8][1]
         cx, cy = (x1 + x2)//2, (y1 + y2)//2
 
         cv2.circle(img, (x1, y1), 7, (0, 0, 255), cv2.FILLED)
@@ -58,7 +68,7 @@ while True:
 
     cv2.rectangle(img, (50, 150), (85, 400), (0, 0, 0), 4)
     cv2.rectangle(img, (50, int(volBar)), (85, 400), (0, 0, 200), cv2.FILLED)
-    cv2.putText(img, f'Volume: {int(volPer)}%', (40, 500), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 3)
+    cv2.putText(img, f'Volume: {int(volPer)}%', (40, 450), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 3)
     cTime = time.time()
     fps = 1/(cTime - pTime)
     pTime = cTime
@@ -67,4 +77,3 @@ while True:
     cv2.imshow("Frame", img)
     if cv2.waitKey(1) == 27:
         break
-
