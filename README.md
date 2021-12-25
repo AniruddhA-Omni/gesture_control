@@ -1,1 +1,1 @@
-# Gesture control for volume
+# Gesture control for volume and brightness
