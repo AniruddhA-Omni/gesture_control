@@ -14,6 +14,7 @@
     ```bash
     git clone https://github.com/AniruddhA-Omni/gesture_control.git
     cd GestureControlBrightness
+    git checkout brightness_control
     ```
 2. Install dependent packages
     ```bash
