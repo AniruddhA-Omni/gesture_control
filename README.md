@@ -28,7 +28,13 @@
 ## <u>Instructions</u>
 - Keep the hands <i>20cm - 30cm</i> away from Camera and use <i>one hand</i> at a time
 - Use <b>Right</b> hand to control <b>Volume</b>
+<p align="center">
+  <img height="360" src="examples/Volume_control.png">
+</p>
 - Use <b>Left</b> hand to control <b>Brightness</b>
+<p align="center">
+  <img height="360" src="examples/Brightness_control.png">
+</p>
 - While there is a line between your thumb and first finger, to select the desired value, <b>move 
-down</b> your <i>little/pinky finger<i>
+down</b> your <i>little/pinky finger</i>
 - Press ESC to quit from the program
