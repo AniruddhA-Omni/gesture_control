@@ -37,4 +37,5 @@
 </p>
 - While there is a line between your thumb and first finger, to select the desired value, <b>move 
 down</b> your <i>little/pinky finger</i>
+<br>
 - Press ESC to quit from the program
