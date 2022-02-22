@@ -1,4 +1,4 @@
-# Gesture Control for Volume and Brightness in PC or Laptop
+# GCVB: Gesture Control for Volume and Brightness in PC or Laptop
 ***
 ## Demo Link
 https://www.linkedin.com/posts/aniruddha-jana-aj_connections-computervision-project-activity-6881648285652664320-ocOz
